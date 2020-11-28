@@ -42,8 +42,6 @@ const paths = id<string[]>(
 
 st.execSync(`rm ${pathToRouterJs}`);
 
-console.log(paths);
-
 const indexHtmlPath = join(buildDir, "index.html");
 
 for (const path of paths) {
