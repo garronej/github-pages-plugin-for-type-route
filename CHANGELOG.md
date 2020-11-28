@@ -1,3 +1,12 @@
+### **0.0.6** (2020-11-28)  
+  
+- Update package.json  
+- update  
+- update  
+- Update README.md  
+- Update README.md  
+- Update README.md    
+  
 ### **0.0.5** (2020-11-28)  
   
 - Update  
