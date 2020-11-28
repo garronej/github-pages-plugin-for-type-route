@@ -42,6 +42,6 @@ result: TADAAAA! No 404 anymore 🥳
 
 ![image](https://user-images.githubusercontent.com/6702424/100515655-fcfc5380-317d-11eb-8f52-7f207e1a24ce.png)
 
-First project on to which we set the plugin up: https://github.com/thieryw/theo-tz
+First project on to which we set the plugin up: https://github.com/thieryw/theo-tz  
 And it's deployment: http://thieryw.github.io/theo-tz
 
