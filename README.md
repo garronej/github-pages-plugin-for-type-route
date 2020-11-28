@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/garronej/github-pages-plugin-for-typeroute/workflows/ci/badge.svg?branch=master">
+    <img src="https://github.com/garronej/github-pages-plugin-for-typeroute/workflows/ci/badge.svg?branch=develop">
 </p>
 
 # What?
