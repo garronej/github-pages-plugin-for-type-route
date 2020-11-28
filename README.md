@@ -22,45 +22,4 @@
 $ npm install --save github-pages-plugin-for-typeroute
 ```
 
-```typescript
-import { myFunction, myObject } from "github-pages-plugin-for-typeroute";
-```
-
-Specific imports:
-
-```typescript
-import { myFunction } from "github-pages-plugin-for-typeroute/myFunction";
-import { myObject } from "github-pages-plugin-for-typeroute/myObject";
-```
-
-## Import from HTML, with CDN
-
-Import it via a bundle that creates a global ( wider browser support ):
-
-```html
-<script src="//unpkg.com/github-pages-plugin-for-typeroute/bundle.min.js"></script>
-<script>
-    const { myFunction, myObject } = github_pages_plugin_for_typeroute;
-</script>
-```
-
-Or import it as an ES module:
-
-```html
-<script type="module">
-    import {
-        myFunction,
-        myObject,
-    } from "//unpkg.com/github-pages-plugin-for-typeroute/zz_esm/index.js";
-</script>
-```
-
-_You can specify the version you wish to import:_ [unpkg.com](https://unpkg.com)
-
-## Contribute
-
-```bash
-npm install
-npm run build
-npm test
-```
+See [this repo](https://github.com/thieryw) for an example.
