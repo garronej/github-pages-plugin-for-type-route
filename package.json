@@ -1,6 +1,6 @@
 {
     "name": "github-pages-plugin-for-type-route",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Feature create-react-app/type-route/gh-pages compatibility",
     "repository": {
         "type": "git",

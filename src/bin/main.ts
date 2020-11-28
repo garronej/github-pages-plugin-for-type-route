@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import * as st from "scripting-tools";
 import { join, basename, dirname, relative } from "path";
 import * as fs from "fs";
