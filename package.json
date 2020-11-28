@@ -6,20 +6,10 @@
         "type": "git",
         "url": "git://github.com/garronej/github-pages-plugin-for-type-route.git"
     },
-    "main": "dist/lib/index.js",
-    "types": "dist/lib/index.d.ts",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
     "bin": {
-        "hack-gh-pages": "dist/bin/main.js"
-    },
-    "scripts": {
-        "test": "true",
-        "build": "tsc",
-        "enable_short_import_path": "npm run build && denoify_enable_short_npm_import_path",
-        "lint:check": "eslint . --ext .ts,.tsx",
-        "lint": "npm run lint:check -- --fix",
-        "_format": "prettier '**/*.{ts,tsx,json,md}'",
-        "format": "npm run _format -- --write",
-        "format:check": "npm run _format -- --list-different"
+        "hack-gh-pages": "bin/main.js"
     },
     "lint-staged": {
         "*.{ts,tsx}": [
@@ -37,11 +27,18 @@
     "author": "u/garronej",
     "license": "MIT",
     "files": [
-        "src/",
-        "!src/test/",
-        "dist/",
-        "!dist/test/",
-        "!dist/tsconfig.tsbuildinfo"
+        "src/bin/main.ts",
+        "src/lib/index.ts",
+        "src/lib/makeThisModuleAnExecutableRouteLister.ts",
+        "bin/main.d.ts",
+        "bin/main.js",
+        "bin/main.js.map",
+        "lib/index.d.ts",
+        "lib/index.js",
+        "lib/index.js.map",
+        "lib/makeThisModuleAnExecutableRouteLister.d.ts",
+        "lib/makeThisModuleAnExecutableRouteLister.js",
+        "lib/makeThisModuleAnExecutableRouteLister.js.map"
     ],
     "keywords": [],
     "homepage": "https://github.com/garronej/github-pages-plugin-for-typeroute",
