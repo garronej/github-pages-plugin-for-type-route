@@ -45,9 +45,6 @@
     ],
     "keywords": [],
     "homepage": "https://github.com/garronej/github-pages-plugin-for-typeroute",
-    "peerDependencies": {
-        "typescript": "^4.0.3"
-    },
     "devDependencies": {
         "@types/node": "^10.0.0",
         "@typescript-eslint/eslint-plugin": "^4.5.0",
