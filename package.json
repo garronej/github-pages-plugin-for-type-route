@@ -12,7 +12,7 @@
         "hack-gh-pages": "dist/bin/main.js"
     },
     "scripts": {
-        "test": "node dist/test/",
+        "test": "true",
         "build": "tsc",
         "enable_short_import_path": "npm run build && denoify_enable_short_npm_import_path",
         "lint:check": "eslint . --ext .ts,.tsx",
