@@ -12,5 +12,6 @@ module.exports = {
     "rules": {
         "no-extra-boolean-cast": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
+        "no-empty": "off"
     },
 };

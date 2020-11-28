@@ -1,21 +1,19 @@
 {
-    "name": "github-pages-plugin-for-typeroute",
+    "name": "github-pages-plugin-for-type-route",
     "version": "0.0.0",
     "description": "Feature create-react-app/type-route/gh-pages compatibility",
     "repository": {
         "type": "git",
-        "url": "git://github.com/garronej/github-pages-plugin-for-typeroute.git"
+        "url": "git://github.com/garronej/github-pages-plugin-for-type-route.git"
     },
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "dist/lib/index.js",
+    "types": "dist/lib/index.d.ts",
+    "bin": {
+        "hack-gh-pages": "dist/bin/main.js"
+    },
     "scripts": {
         "test": "node dist/test/",
-        "cdn:bundle:.js": "simplifyify dist/index.js -s github_pages_plugin_for_typeroute -o dist/bundle.js --debug --bundle",
-        "cdn:bundle:.min.js": "terser dist/bundle.js -cmo dist/bundle.min.js",
-        "cdn:bundle": "npm run cdn:bundle:.js && npm run cdn:bundle:.min.js",
-        "cdn:esm": "tsc -p tsconfig.esm.json",
-        "cdn": "npm run cdn:bundle && npm run cdn:esm",
-        "build": "tsc && npm run cdn",
+        "build": "tsc",
         "enable_short_import_path": "npm run build && denoify_enable_short_npm_import_path",
         "lint:check": "eslint . --ext .ts,.tsx",
         "lint": "npm run lint:check -- --fix",
@@ -47,19 +45,23 @@
     ],
     "keywords": [],
     "homepage": "https://github.com/garronej/github-pages-plugin-for-typeroute",
+    "peerDependencies": {
+        "typescript": "^4.0.3"
+    },
     "devDependencies": {
-        "typescript": "^4.0.3",
         "@types/node": "^10.0.0",
-        "denoify": "^0.5.10",
-        "evt": "^1.8.11",
-        "simplifyify": "^8.0.3",
-        "terser": "^5.3.8",
-        "husky": "^4.3.0",
-        "prettier": "^2.0.5",
-        "eslint": "^7.7.0",
-        "@typescript-eslint/parser": "^4.5.0",
         "@typescript-eslint/eslint-plugin": "^4.5.0",
+        "@typescript-eslint/parser": "^4.5.0",
+        "denoify": "^0.5.10",
+        "eslint": "^7.7.0",
         "eslint-config-prettier": "^6.14.0",
-        "lint-staged": "^10.4.2"
+        "evt": "^1.8.11",
+        "husky": "^4.3.0",
+        "lint-staged": "^10.4.2",
+        "prettier": "^2.0.5",
+        "typescript": "^4.0.3"
+    },
+    "dependencies": {
+        "scripting-tools": "^0.19.13"
     }
 }
