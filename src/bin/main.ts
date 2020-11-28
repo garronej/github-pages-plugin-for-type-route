@@ -48,3 +48,5 @@ for (const path of paths) {
     st.execSync(`mkdir -p ${join(buildDir, dirname(path))}`);
     st.execSync(`cp ${indexHtmlPath} ${join(buildDir, path)}.html`);
 }
+
+st.execSync(`cp ${indexHtmlPath} ${join(buildDir, "404.html")}`);
