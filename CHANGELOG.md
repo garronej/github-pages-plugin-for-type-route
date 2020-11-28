@@ -1,3 +1,8 @@
+### **0.0.5** (2020-11-28)  
+  
+- Update  
+- remove typescript from peer dependencies    
+  
 ### **0.0.4** (2020-11-28)  
   
 - a brand new version    
