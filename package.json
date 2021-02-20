@@ -1,6 +1,6 @@
 {
     "name": "github-pages-plugin-for-type-route",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "Feature create-react-app/type-route/gh-pages compatibility",
     "repository": {
         "type": "git",
@@ -52,13 +52,13 @@
         "denoify": "^0.5.10",
         "eslint": "^7.7.0",
         "eslint-config-prettier": "^6.14.0",
-        "evt": "^1.8.11",
         "husky": "^4.3.0",
         "lint-staged": "^10.4.2",
         "prettier": "^2.0.5",
         "typescript": "^4.0.3"
     },
     "dependencies": {
+        "evt": "^1.8.11",
         "scripting-tools": "^0.19.13"
     }
 }
