@@ -1,3 +1,7 @@
+### **0.0.7** (2021-02-20)  
+  
+- add evt as dependency    
+  
 ### **0.0.6** (2020-11-28)  
   
 - Update package.json  
