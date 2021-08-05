@@ -1,3 +1,7 @@
+### **0.0.8** (2021-08-05)  
+  
+- Enable the router not to be at the root of src/    
+  
 ### **0.0.7** (2021-02-20)  
   
 - add evt as dependency    
