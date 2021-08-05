@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import * as st from "scripting-tools";
-import { join, basename, dirname, relative } from "path";
+import { join, dirname, relative, sep } from "path";
 import * as fs from "fs";
 import { parse as parseUrl } from "url";
 import { id } from "evt/tools/typeSafety/id";
@@ -23,7 +23,7 @@ try {
 
 const pathToRouterJs = join(
     buildDir,
-    basename(pathToRouterTs.replace(/ts$/i, "js")),
+    pathToRouterTs.replace(/ts$/i, "js").split(sep).slice(1).join(sep),
 );
 
 const publicUrl = parseUrl(
