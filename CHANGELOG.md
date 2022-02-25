@@ -1,3 +1,10 @@
+### **0.0.9** (2022-02-25)  
+  
+- Remove unessesary dependencies  
+- Replace evt by tsafe for id  
+- update README.md  
+- Update README.md    
+  
 ### **0.0.8** (2021-08-05)  
   
 - Enable the router not to be at the root of src/    
