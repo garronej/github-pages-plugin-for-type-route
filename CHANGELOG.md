@@ -1,3 +1,7 @@
+## **0.1.0** (2022-02-25)  
+  
+- Fix multiples small bugs    
+  
 ### **0.0.9** (2022-02-25)  
   
 - Remove unessesary dependencies  
