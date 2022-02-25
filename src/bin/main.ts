@@ -11,40 +11,52 @@ const id = <T>(x: T) => x;
 const pathToNode = process.argv[0];
 const pathToRouterTs = process.argv[2];
 const buildDir = "build";
+const tmpDistDir = ".dist_tmp_xKLsKdIdJd";
 
 try {
     execSync(
         [
             pathToNode,
             join("node_modules", "typescript", "bin", "tsc"),
-            `--outDir ${buildDir}`,
+            `--outDir ${tmpDistDir}`,
+            "--rootDir ./src/",
             pathToRouterTs,
         ].join(" "),
     );
 } catch {}
 
 const pathToRouterJs = join(
-    buildDir,
+    tmpDistDir,
     pathToRouterTs.replace(/ts$/i, "js").split(sep).slice(1).join(sep),
 );
 
-const publicUrl = parseUrl(
-    JSON.parse(fs.readFileSync("package.json").toString("utf8"))["homepage"],
-).path!;
+const PUBLIC_URL = (() => {
+    const homepage = JSON.parse(
+        fs.readFileSync("package.json").toString("utf8"),
+    )["homepage"];
+
+    let out: string | undefined;
+
+    if (homepage !== undefined) {
+        out = parseUrl(homepage).path;
+    }
+
+    return out ?? "/";
+})();
 
 const paths = id<string[]>(
     JSON.parse(
         execSync([pathToNode, pathToRouterJs].join(" "), {
             "env": {
-                "PUBLIC_URL": publicUrl,
+                PUBLIC_URL,
             },
         }).toString("utf8"),
     ),
 )
-    .map(path => relative(publicUrl, path))
+    .map(path => relative(PUBLIC_URL, path))
     .filter(path => path !== "");
 
-execSync(`rm ${pathToRouterJs}`);
+execSync(`rm -r ${tmpDistDir}`);
 
 const indexHtmlPath = join(buildDir, "index.html");
 
