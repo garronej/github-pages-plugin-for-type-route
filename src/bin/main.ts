@@ -4,7 +4,7 @@ import * as st from "scripting-tools";
 import { join, dirname, relative, sep } from "path";
 import * as fs from "fs";
 import { parse as parseUrl } from "url";
-import { id } from "evt/tools/typeSafety/id";
+import { id } from "tsafe/id";
 
 const pathToNode = process.argv[0];
 const pathToRouterTs = process.argv[2];
