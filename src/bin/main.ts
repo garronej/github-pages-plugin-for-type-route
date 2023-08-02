@@ -35,13 +35,13 @@ const PUBLIC_URL = (() => {
         fs.readFileSync("package.json").toString("utf8"),
     )["homepage"];
 
-    let out: string | undefined;
+    let out: string | undefined = "/";
 
     if (homepage !== undefined) {
         out = parseUrl(homepage).path;
     }
 
-    return out ?? "/";
+    return out === "/" ? "" : out;
 })();
 
 const paths = id<string[]>(
@@ -53,7 +53,7 @@ const paths = id<string[]>(
         }).toString("utf8"),
     ),
 )
-    .map(path => relative(PUBLIC_URL, path))
+    .map(path => relative(PUBLIC_URL || "/", path))
     .filter(path => path !== "");
 
 execSync(`rm -r ${tmpDistDir}`);
