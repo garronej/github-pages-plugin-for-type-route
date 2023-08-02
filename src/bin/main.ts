@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { join, dirname, relative, sep } from "path";
+import { join, dirname, sep } from "path";
 import * as fs from "fs";
 import { parse as parseUrl } from "url";
 import { execSync } from "child_process";
@@ -53,7 +53,9 @@ const paths = id<string[]>(
         }).toString("utf8"),
     ),
 )
-    .map(path => relative(PUBLIC_URL, path))
+    .map(path =>
+        path.startsWith(PUBLIC_URL) ? path.slice(PUBLIC_URL.length) : path,
+    )
     .filter(path => path !== "");
 
 execSync(`rm -r ${tmpDistDir}`);
