@@ -1,3 +1,8 @@
+### **0.1.1** (2023-08-02)  
+  
+- Bump version  
+- Consistency with how CRA provide 'PUBLIC_URL'    
+  
 ## **0.1.0** (2022-02-25)  
   
 - Fix multiples small bugs    
