@@ -52,8 +52,8 @@
         "denoify": "^0.5.10",
         "eslint": "^7.7.0",
         "eslint-config-prettier": "^6.14.0",
-        "husky": "^4.3.0",
-        "lint-staged": "^10.4.2",
+        "husky": "^8.0.3",
+        "lint-staged": "^13.2.1",
         "prettier": "^2.0.5",
         "typescript": "^4.0.3"
     }
