@@ -10,7 +10,19 @@ const id = <T>(x: T) => x;
 
 const pathToNode = process.argv[0];
 const pathToRouterTs = process.argv[2];
-const buildDir = "build";
+const buildDir = (() => {
+    for (const dir of ["build", "dist"]) {
+        if (fs.existsSync(dir)) {
+            return dir;
+        }
+    }
+    throw new Error("Error: There is no dist or build folder !");
+})();
+
+if (!fs.existsSync(join(buildDir, "index.html"))) {
+    throw new Error("Error: There is no index.html file present !");
+}
+
 const tmpDistDir = ".dist_tmp_xKLsKdIdJd";
 
 try {
@@ -25,10 +37,17 @@ try {
     );
 } catch {}
 
-const pathToRouterJs = join(
-    tmpDistDir,
-    pathToRouterTs.replace(/ts$/i, "js").split(sep).slice(1).join(sep),
-);
+function createPathToRouter(fileType: "js" | "cjs") {
+    return join(
+        tmpDistDir,
+        pathToRouterTs.replace(/ts$/i, fileType).split(sep).slice(1).join(sep),
+    );
+}
+
+const pathToRouterJs = createPathToRouter("js");
+const pathToRouterCjs = createPathToRouter("cjs");
+
+execSync(`mv ${pathToRouterJs} ${pathToRouterCjs}`);
 
 const PUBLIC_URL = (() => {
     const homepage = JSON.parse(
@@ -46,7 +65,7 @@ const PUBLIC_URL = (() => {
 
 const paths = id<string[]>(
     JSON.parse(
-        execSync([pathToNode, pathToRouterJs].join(" "), {
+        execSync([pathToNode, pathToRouterCjs].join(" "), {
             "env": {
                 PUBLIC_URL,
             },
