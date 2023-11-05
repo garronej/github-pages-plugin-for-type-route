@@ -1,3 +1,12 @@
+# **1.0.0** (2023-11-05)  
+  
+- Bump version (release v1)  
+- Merge pull request #6 from thieryw/update-for-vite
+
+make it compatible with vite  
+- prettify so that lint check passes  
+- make it compatible with vite    
+  
 ### **0.1.1** (2023-08-02)  
   
 - Bump version  
