@@ -23,6 +23,20 @@ if (!fs.existsSync(join(buildDir, "index.html"))) {
     throw new Error("Error: There is no index.html file present !");
 }
 
+const originalRouterTs = fs.readFileSync(pathToRouterTs, {
+    "encoding": "utf8",
+});
+let tempRouterTsPath: string | undefined = undefined;
+
+if (originalRouterTs.includes("__BASE_URL__")) {
+    const modifiedRouterTs = originalRouterTs.replace(
+        /__BASE_URL__/g,
+        'process.env["PUBLIC_URL"]',
+    );
+    tempRouterTsPath = pathToRouterTs.replace(".ts", `.temp_${Date.now()}.ts`);
+    fs.writeFileSync(tempRouterTsPath, modifiedRouterTs);
+}
+
 const tmpDistDir = ".dist_tmp_xKLsKdIdJd";
 
 try {
@@ -32,7 +46,7 @@ try {
             join("node_modules", "typescript", "bin", "tsc"),
             `--outDir ${tmpDistDir}`,
             "--rootDir ./src/",
-            pathToRouterTs,
+            tempRouterTsPath ?? pathToRouterTs,
         ].join(" "),
     );
 } catch {}
@@ -40,7 +54,11 @@ try {
 function createPathToRouter(fileType: "js" | "cjs") {
     return join(
         tmpDistDir,
-        pathToRouterTs.replace(/ts$/i, fileType).split(sep).slice(1).join(sep),
+        (tempRouterTsPath ?? pathToRouterTs)
+            .replace(/ts$/i, fileType)
+            .split(sep)
+            .slice(1)
+            .join(sep),
     );
 }
 
@@ -76,6 +94,9 @@ const paths = id<string[]>(
     .filter(path => path !== "");
 
 execSync(`rm -r ${tmpDistDir}`);
+if (tempRouterTsPath !== undefined) {
+    execSync(`rm ${tempRouterTsPath}`);
+}
 
 const indexHtmlPath = join(buildDir, "index.html");
 
