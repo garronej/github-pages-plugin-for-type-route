@@ -9,12 +9,13 @@ import { execSync } from "child_process";
 const id = <T>(x: T) => x;
 
 const pathToNode = process.argv[0];
-const buildDir = "build";
 const tmpDistDir = ".dist_tmp_xKLsKdIdJd";
+
+const isVite = fs.existsSync("vite.config.ts");
 
 const PUBLIC_URL = (() => {
     cra: {
-        if (fs.existsSync("vite.config.ts")) {
+        if (isVite) {
             break cra;
         }
 
@@ -104,6 +105,8 @@ const paths = id<string[]>(
     .filter(path => path !== "");
 
 execSync(`rm -r ${tmpDistDir}`);
+
+const buildDir = isVite ? "dist" : "build";
 
 const indexHtmlPath = join(buildDir, "index.html");
 
