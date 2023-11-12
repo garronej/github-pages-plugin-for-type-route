@@ -1,24 +1,3 @@
-### **1.0.1** (2023-11-08)  
-  
-- Merge pull request #7 from thieryw/new-vite-config
-
-Fix __BASE_URL__ Accessibility in Node.js Context for Vite Projects  
-- Implemented process.env.PUBLIC_URL substitution for __BASE_URL__    
-  
-# **1.0.0** (2023-11-05)  
-  
-- Bump version (release v1)  
-- Merge pull request #6 from thieryw/update-for-vite
-
-make it compatible with vite  
-- prettify so that lint check passes  
-- make it compatible with vite    
-  
-### **0.1.1** (2023-08-02)  
-  
-- Bump version  
-- Consistency with how CRA provide 'PUBLIC_URL'    
-  
 ## **0.1.0** (2022-02-25)  
   
 - Fix multiples small bugs    

@@ -10,34 +10,65 @@ const id = <T>(x: T) => x;
 
 const pathToNode = process.argv[0];
 const pathToRouterTs = process.argv[2];
-const buildDir = (() => {
-    for (const dir of ["build", "dist"]) {
-        if (fs.existsSync(dir)) {
-            return dir;
+const buildDir = "build";
+const tmpDistDir = ".dist_tmp_xKLsKdIdJd";
+
+const PUBLIC_URL = (() => {
+    cra: {
+        if (fs.existsSync("vite.config.ts")) {
+            break cra;
         }
+
+        const homepage = JSON.parse(
+            fs.readFileSync("package.json").toString("utf8"),
+        )["homepage"];
+
+        let out: string | undefined = "/";
+
+        if (homepage !== undefined) {
+            out = parseUrl(homepage).path;
+        }
+
+        return out === "/" ? "" : out;
     }
-    throw new Error("Error: There is no dist or build folder !");
+
+    const viteConfigRaw = fs.readFileSync("vite.config.ts").toString("utf8");
+
+    if (!/["']?base["']?:/.test(viteConfigRaw)) {
+        return "/";
+    }
+
+    const baseRegex = /["']?base["']?:\s*[`'"]([^'"]+)[`'"],?/;
+    const match = viteConfigRaw.match(baseRegex);
+
+    if (match === null) {
+        throw new Error(
+            "Cannot parse your vite.config.ts file. Please add a base parameter to it.",
+        );
+    }
+
+    return match[1];
 })();
 
-if (!fs.existsSync(join(buildDir, "index.html"))) {
-    throw new Error("Error: There is no index.html file present !");
-}
+const { pathToModifiedRouterTs } = (() => {
+    const routerTsRaw = fs.readFileSync(pathToRouterTs).toString("utf8");
 
-const originalRouterTs = fs.readFileSync(pathToRouterTs, {
-    "encoding": "utf8",
-});
-let tempRouterTsPath: string | undefined = undefined;
-
-if (originalRouterTs.includes("__BASE_URL__")) {
-    const modifiedRouterTs = originalRouterTs.replace(
-        /__BASE_URL__/g,
-        'process.env["PUBLIC_URL"]',
+    //TODO: Modify routerTsRaw
+    const routerTsRawModified = routerTsRaw
+        .replace(/process.env.PUBLIC_URL/g, JSON.stringify(PUBLIC_URL))
+        .replace(/import.meta.env.BASE_URL/g, JSON.stringify(PUBLIC_URL));
+    const pathToModifiedRouterTs = join(
+        dirname(pathToRouterTs),
+        "router_tmp.ts",
     );
-    tempRouterTsPath = pathToRouterTs.replace(".ts", `.temp_${Date.now()}.ts`);
-    fs.writeFileSync(tempRouterTsPath, modifiedRouterTs);
-}
 
-const tmpDistDir = ".dist_tmp_xKLsKdIdJd";
+    fs.writeFileSync(
+        pathToModifiedRouterTs,
+        Buffer.from(routerTsRawModified, "utf8"),
+    );
+
+    return { pathToModifiedRouterTs };
+})();
 
 try {
     execSync(
@@ -46,57 +77,27 @@ try {
             join("node_modules", "typescript", "bin", "tsc"),
             `--outDir ${tmpDistDir}`,
             "--rootDir ./src/",
-            tempRouterTsPath ?? pathToRouterTs,
+            pathToModifiedRouterTs,
         ].join(" "),
     );
 } catch {}
 
-function createPathToRouter(fileType: "js" | "cjs") {
-    return join(
-        tmpDistDir,
-        (tempRouterTsPath ?? pathToRouterTs)
-            .replace(/ts$/i, fileType)
-            .split(sep)
-            .slice(1)
-            .join(sep),
-    );
-}
+execSync(`rm ${pathToModifiedRouterTs}`);
 
-const pathToRouterJs = createPathToRouter("js");
-const pathToRouterCjs = createPathToRouter("cjs");
-
-execSync(`mv ${pathToRouterJs} ${pathToRouterCjs}`);
-
-const PUBLIC_URL = (() => {
-    const homepage = JSON.parse(
-        fs.readFileSync("package.json").toString("utf8"),
-    )["homepage"];
-
-    let out: string | undefined = "/";
-
-    if (homepage !== undefined) {
-        out = parseUrl(homepage).path;
-    }
-
-    return out === "/" ? "" : out;
-})();
+const pathToRouterJs = join(
+    tmpDistDir,
+    pathToRouterTs.replace(/ts$/i, "js").split(sep).slice(1).join(sep),
+);
 
 const paths = id<string[]>(
     JSON.parse(
-        execSync([pathToNode, pathToRouterCjs].join(" "), {
-            "env": {
-                PUBLIC_URL,
-            },
-        }).toString("utf8"),
+        execSync([pathToNode, pathToRouterJs].join(" ")).toString("utf8"),
     ),
 )
     .map(path => relative(PUBLIC_URL || "/", path))
     .filter(path => path !== "");
 
 execSync(`rm -r ${tmpDistDir}`);
-if (tempRouterTsPath !== undefined) {
-    execSync(`rm ${tempRouterTsPath}`);
-}
 
 const indexHtmlPath = join(buildDir, "index.html");
 
