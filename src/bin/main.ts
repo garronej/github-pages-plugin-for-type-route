@@ -9,7 +9,6 @@ import { execSync } from "child_process";
 const id = <T>(x: T) => x;
 
 const pathToNode = process.argv[0];
-const pathToRouterTs = process.argv[2];
 const buildDir = "build";
 const tmpDistDir = ".dist_tmp_xKLsKdIdJd";
 
@@ -51,6 +50,7 @@ const PUBLIC_URL = (() => {
 })();
 
 const { pathToModifiedRouterTs } = (() => {
+    const pathToRouterTs = process.argv[2];
     const routerTsRaw = fs.readFileSync(pathToRouterTs).toString("utf8");
 
     //TODO: Modify routerTsRaw
@@ -86,7 +86,7 @@ execSync(`rm ${pathToModifiedRouterTs}`);
 
 const pathToRouterJs = join(
     tmpDistDir,
-    pathToRouterTs.replace(/ts$/i, "cjs").split(sep).slice(1).join(sep),
+    pathToModifiedRouterTs.replace(/ts$/i, "cjs").split(sep).slice(1).join(sep),
 );
 
 fs.renameSync(
