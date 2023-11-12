@@ -86,7 +86,12 @@ execSync(`rm ${pathToModifiedRouterTs}`);
 
 const pathToRouterJs = join(
     tmpDistDir,
-    pathToRouterTs.replace(/ts$/i, "js").split(sep).slice(1).join(sep),
+    pathToRouterTs.replace(/ts$/i, "cjs").split(sep).slice(1).join(sep),
+);
+
+fs.renameSync(
+    join(pathToRouterJs.replace(/cjs$/i, "js")),
+    join(pathToRouterJs),
 );
 
 const paths = id<string[]>(
