@@ -54,9 +54,10 @@ const { pathToModifiedRouterTs } = (() => {
     const routerTsRaw = fs.readFileSync(pathToRouterTs).toString("utf8");
 
     //TODO: Modify routerTsRaw
-    const routerTsRawModified = routerTsRaw
-        .replace(/process.env.PUBLIC_URL/g, JSON.stringify(PUBLIC_URL))
-        .replace(/import.meta.env.BASE_URL/g, JSON.stringify(PUBLIC_URL));
+    const routerTsRawModified = routerTsRaw.replace(
+        /(process.env.PUBLIC_URL)|(import.meta.env.BASE_URL)/g,
+        JSON.stringify(PUBLIC_URL),
+    );
     const pathToModifiedRouterTs = join(
         dirname(pathToRouterTs),
         "router_tmp.ts",
