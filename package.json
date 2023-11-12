@@ -14,12 +14,11 @@
     "scripts": {
         "test": "true",
         "build": "tsc",
-        "enable_short_import_path": "npm run build && denoify_enable_short_npm_import_path",
         "lint:check": "eslint . --ext .ts,.tsx",
-        "lint": "npm run lint:check -- --fix",
+        "lint": "yarn lint:check --fix",
         "_format": "prettier '**/*.{ts,tsx,json,md}'",
-        "format": "npm run _format -- --write",
-        "format:check": "npm run _format -- --list-different"
+        "format": "yarn _format --write",
+        "format:check": "yarn _format --list-different"
     },
     "lint-staged": {
         "*.{ts,tsx}": [
